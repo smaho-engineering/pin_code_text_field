@@ -18,7 +18,8 @@ typedef PinBoxDecoration = BoxDecoration Function(
 /// class to provide some standard PinBoxDecoration such as standard box or underlined
 class ProvidedPinBoxDecoration {
   /// Default BoxDecoration
-  static PinBoxDecoration defaultPinBoxDecoration = (Color borderColor,
+  static PinBoxDecoration defaultPinBoxDecoration = (
+      Color borderColor,
       Color pinBoxColor, {
         double borderWidth = 2.0,
         double radius = 5.0,
@@ -33,7 +34,8 @@ class ProvidedPinBoxDecoration {
   };
 
   /// Underlined BoxDecoration
-  static PinBoxDecoration underlinedPinBoxDecoration = (Color borderColor,
+  static PinBoxDecoration underlinedPinBoxDecoration = (
+      Color borderColor,
       Color pinBoxColor, {
         double borderWidth = 2.0,
         double radius,
@@ -48,7 +50,8 @@ class ProvidedPinBoxDecoration {
     );
   };
 
-  static PinBoxDecoration roundedPinBoxDecoration = (Color borderColor,
+  static PinBoxDecoration roundedPinBoxDecoration = (
+      Color borderColor,
       Color pinBoxColor, {
         double borderWidth = 2.0,
         double radius,
@@ -390,11 +393,11 @@ class PinCodeTextFieldState extends State<PinCodeTextField>
           focusedBorder: transparentBorder,
           counterText: null,
           counterStyle: null,
-          helperStyle: TextStyle(
+          helperStyle: const TextStyle(
             height: 0.0,
             color: Colors.transparent,
           ),
-          labelStyle: TextStyle(height: 0.1),
+          labelStyle: const TextStyle(height: 0.1),
           fillColor: Colors.transparent,
           border: InputBorder.none,
         ),
@@ -560,7 +563,11 @@ class PinCodeTextFieldState extends State<PinCodeTextField>
             child: Center(child: _animatedTextBox(strList[i], i)),
             decoration: widget.hasUnderline
                 ? BoxDecoration(
-              border: Border(bottom: BorderSide(color: borderColor ?? Colors.black,),),
+              border: Border(
+                bottom: BorderSide(
+                  color: borderColor ?? Colors.black,
+                ),
+              ),
             )
                 : null,
           ),
