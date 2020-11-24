@@ -127,6 +127,7 @@ class PinCodeTextField extends StatefulWidget {
   final PinBoxDecoration pinBoxDecoration;
   final String maskCharacter;
   final TextStyle pinTextStyle;
+  final TextStyle pinTextFieldStyle;
   final double pinBoxHeight;
   final double pinBoxWidth;
   final OnDone onDone;
@@ -143,6 +144,8 @@ class PinCodeTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final EdgeInsets pinBoxOuterPadding;
   final bool hasUnderline;
+  final ToolbarOptions toolbarOptions;
+  final bool enableInteractiveSelection;
 
   const PinCodeTextField({
     Key key,
@@ -161,6 +164,7 @@ class PinCodeTextField extends StatefulWidget {
     this.pinBoxWidth: 70.0,
     this.pinBoxHeight: 70.0,
     this.pinTextStyle,
+    this.pinTextFieldStyle,
     this.onDone,
     this.defaultBorderColor: Colors.black,
     this.hasTextBorderColor: Colors.black,
@@ -181,6 +185,8 @@ class PinCodeTextField extends StatefulWidget {
     this.pinBoxRadius = 0,
     this.hideDefaultKeyboard = false,
     this.hasUnderline = false,
+    this.toolbarOptions = const ToolbarOptions(),
+    this.enableInteractiveSelection = false,
   }) : super(key: key);
 
   @override
@@ -337,8 +343,8 @@ class PinCodeTextFieldState extends State<PinCodeTextField>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        !widget.isCupertino ? _fakeTextInput() : _fakeTextInputCupertino(),
         _touchPinBoxRow(),
+        !widget.isCupertino ? _fakeTextInput() : _fakeTextInputCupertino(),
       ],
     );
   }
@@ -374,17 +380,15 @@ class PinCodeTextFieldState extends State<PinCodeTextField>
       height: widget.pinBoxHeight,
       child: TextField(
         autofocus: !kIsWeb ? widget.autofocus : false,
-        enableInteractiveSelection: false,
+        enableInteractiveSelection: widget.enableInteractiveSelection,
         focusNode: focusNode,
         controller: widget.controller,
         keyboardType: widget.keyboardType,
         inputFormatters: widget.keyboardType == TextInputType.number
             ? <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly]
             : null,
-        style: TextStyle(
-          height: 0.1, color: Colors.transparent,
-//          color: Colors.transparent,
-        ),
+        style: widget.pinTextFieldStyle,
+        toolbarOptions: widget.toolbarOptions,
         decoration: InputDecoration(
           focusedErrorBorder: transparentBorder,
           errorBorder: transparentBorder,
